@@ -1,0 +1,25 @@
+name: Milestone Booster
+
+on:
+  schedule:
+    - cron: '5 * * * *' # This runs every hour. 
+  workflow_dispatch:      # This allows you to run it manually for testing.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Make a change
+        run: |
+          echo "Last commit: $(date)" > activity.txt
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "Wasif Tai"
+          git config --global user.email "muhammadwasiftai@gmail.com"
+          git add activity.txt
+          git commit -m "chore: update activity log [skip ci]"
+          git push
